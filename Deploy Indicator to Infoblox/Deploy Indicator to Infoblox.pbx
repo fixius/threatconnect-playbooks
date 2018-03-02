@@ -1,0 +1,281 @@
+{
+  "definitionVersion" : "1.0.0",
+  "name" : "Deploy Indicator to Infoblox",
+  "panX" : 809.0,
+  "panY" : 116.0,
+  "logLevel" : "WARN",
+  "jobList" : [ {
+    "id" : 7544,
+    "appCatalogItem" : {
+      "programName" : "If / Else",
+      "displayName" : "If / Else",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "IP Address?",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "as_numeric"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "operand_2"
+      },
+      "value" : "address"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "operator"
+      },
+      "value" : "equals"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "operand_1"
+      },
+      "value" : "#Trigger:821:trg.action.type!String"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "match_case"
+      },
+      "value" : "false"
+    } ],
+    "locationLeft" : 60.0,
+    "locationTop" : 120.0,
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 7545,
+    "appCatalogItem" : {
+      "programName" : "Add Attribute",
+      "displayName" : "Create ThreatConnect Attribute",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "Create ThreatConnect Attribute",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "update"
+      },
+      "value" : "true"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "attribute_content"
+      },
+      "value" : "Deployed to Infoblox"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "attribute_type"
+      },
+      "value" : "Course of Action Taken"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "indicator_name"
+      },
+      "value" : "#Trigger:821:trg.action.entity!TCEntity"
+    } ],
+    "locationLeft" : 610.0,
+    "locationTop" : 0.0,
+    "playbookRetryEnabled" : false
+  }, {
+    "id" : 7547,
+    "appCatalogItem" : {
+      "programName" : "TCPB - HTTP Client v2.0",
+      "displayName" : "HTTP Client",
+      "programVersion" : "2.0.2"
+    },
+    "name" : "Deploy Address",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "headers"
+      },
+      "value" : "[{\"key\":\"Authorization\",\"value\":\"Basic #App:7604:basic.encode.signature!String\"},{\"key\":\"Content-Type\",\"value\":\"application/json\"}]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "url"
+      },
+      "value" : "https://infobloxserver/wapi/v2.7/record:rpz:cname:ipaddressdn?_return_fields%2B=name,rp_zone&_return_as_object=1"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "params"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "http_method"
+      },
+      "value" : "POST"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "fail_on_error"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "proxies_enabled"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "body"
+      },
+      "value" : "{\"name\":\"#Trigger:821:trg.action.item!String.threatconnect\",\"canonical\":\"sinkhole.name.com\",\"rp_zone\":\"threatconnect\"}"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "advanced"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "multipart"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "verify_ssl"
+      },
+      "value" : "false"
+    } ],
+    "locationLeft" : 280.0,
+    "locationTop" : 110.0,
+    "playbookRetryEnabled" : false,
+    "playbookRetryDelayMinutes" : 1,
+    "playbookRetryMaxRetries" : 5
+  }, {
+    "id" : 7548,
+    "appCatalogItem" : {
+      "programName" : "TCPB - HTTP Client v2.0",
+      "displayName" : "HTTP Client",
+      "programVersion" : "2.0.2"
+    },
+    "name" : "Deploy Host",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "url"
+      },
+      "value" : "https://infobloxserver/wapi/v2.7/record:rpz:cname?_return_fields%2B=name,rp_zone&_return_as_object=1"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "verify_ssl"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "fail_on_error"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "proxies_enabled"
+      },
+      "value" : "false"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "advanced"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "http_method"
+      },
+      "value" : "POST"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "params"
+      },
+      "value" : "[]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "body"
+      },
+      "value" : "{\"name\":\"#Trigger:821:trg.action.item!String.threatconnect\",\"canonical\":\"sinkhole.name.com\",\"rp_zone\":\"threatconnect\"}"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "headers"
+      },
+      "value" : "[{\"key\":\"authorization\",\"value\":\"Basic #App:7604:basic.encode.signature!String\"},{\"key\":\"Content-Type\",\"value\":\"application/json\"}]"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "multipart"
+      },
+      "value" : "[]"
+    } ],
+    "locationLeft" : 280.0,
+    "locationTop" : 220.0,
+    "playbookRetryEnabled" : false,
+    "playbookRetryDelayMinutes" : 1,
+    "playbookRetryMaxRetries" : 5
+  }, {
+    "id" : 7604,
+    "appCatalogItem" : {
+      "programName" : "Basic Encoding",
+      "displayName" : "Encode Base64",
+      "programVersion" : "1.0.0"
+    },
+    "name" : "Encode Credentials",
+    "jobParameterList" : [ {
+      "appCatalogItemParameter" : {
+        "paramName" : "basicUser"
+      },
+      "value" : "infoblox-user"
+    }, {
+      "appCatalogItemParameter" : {
+        "paramName" : "password"
+      },
+      "value" : ""
+    } ],
+    "locationLeft" : -220.0,
+    "locationTop" : 110.0,
+    "playbookRetryEnabled" : false
+  } ],
+  "playbookConnectionList" : [ {
+    "type" : "Pass",
+    "isCircularOnTarget" : true,
+    "sourceJobId" : 7545,
+    "targetTriggerId" : 821
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 7547,
+    "targetJobId" : 7545
+  }, {
+    "type" : "Fail",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 7544,
+    "targetJobId" : 7548
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 7548,
+    "targetJobId" : 7545
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 7544,
+    "targetJobId" : 7547
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "sourceJobId" : 7604,
+    "targetJobId" : 7544
+  }, {
+    "type" : "Pass",
+    "isCircularOnTarget" : false,
+    "targetJobId" : 7604,
+    "sourceTriggerId" : 821
+  } ],
+  "playbookTriggerList" : [ {
+    "id" : 821,
+    "name" : "Deploy to Infoblox",
+    "type" : "UserAction",
+    "eventType" : "External",
+    "locationLeft" : -500.0,
+    "locationTop" : 100.0,
+    "httpBasicAuthEnable" : false,
+    "httpResponseHeader" : "[]",
+    "httpResponseBody" : "✓ Added",
+    "anyOrg" : true,
+    "orFilters" : false,
+    "fireOnDuplicate" : false,
+    "userActionTypes" : "Address,Host",
+    "renderBodyAsTip" : true,
+    "outputVariables" : "[{\"name\":\"trg.action.type\",\"type\":\"String\"},{\"name\":\"trg.action.entity\",\"type\":\"TCEntity\"}]"
+  } ],
+  "dateExported" : "3/2/18 1:06 PM"
+}
